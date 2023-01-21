@@ -11,6 +11,8 @@ var projectInputs = {
   author: "",
   description: "",
   technology: "",
+  cssLibrary: "",
+  codeHighlight: ""
 };
 
 //This is the object of the questions that will be answered in the terminal
@@ -49,6 +51,17 @@ inquirer
       message: "Select a css that you used",
       choices: ["BootStrap", "Tailwind", "Bulma", "Skeleton", "Pure",'Groundwork', 'Cardinal','Other'],
       when: (answers) => answers.cssUsed === true
+    },
+    {
+      type: "confirm",
+      name: "codeHighlightAnswer",
+      message: "Would you like to include a code highlight in your readMe?"
+    },
+    {
+      type: "editor",
+      name: "codeHightlightText",
+      message: "User your editor to enter your code highlight",
+      when: (answers) => answers.codeHighlightAnswer === true
     }
   ])
   //This logs the answers
@@ -59,6 +72,7 @@ inquirer
     projectInputs.technology = answers.technology;
     const technologyArray = answers.technology;
     const cssArray = answers.cssLibrary;
+    projectInputs.codeHighlight = (answers.codeHightlightText);
     console.info("answer:", answers.title);
     console.info("answer:", answers.author);
     console.info("answer:", answers.description);
@@ -67,9 +81,11 @@ inquirer
       projectInputs.title,
       projectInputs.author,
       projectInputs.description,
-      projectInputs.technology
+      projectInputs.technology,
+      projectInputs.codeHighlight
       
     );
+    // console.log(projectInputs.codeHighlight)
     for (const technology of technologyArray){
       console.log("this is the technology: " + technology)
     };
@@ -81,12 +97,18 @@ inquirer
 
 /* This sets the content (via a template literal string) of the 
 readme document*/
-function settextContent(a, b, c, d) {
+function settextContent(a, b, c, d, e) {
   var theReadMe = `The title of this project is ${a} and the author is ${b}. 
 
 The description of this project is: ${c}.
     
 The technology used in this project included: ${d}'
+
+## **Code HightLight**
+
+\`\`\`
+${e}
+\`\`\`
 
 
 `;
