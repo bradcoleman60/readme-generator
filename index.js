@@ -103,8 +103,20 @@ inquirer
 /* This sets the content (via a template literal string) of the 
 readme document*/
 function settextContent(a, b, c, d, e) {
-  var theReadMe = `## **${a}** 
+  var theReadMe = `## **${a}**           ${cp.badges[0]}
   
+  ## Table of Contents 
+  
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
+
+## Installation
+
+## Usage 
+
+## Credits
   
   ## **The Author**
 
@@ -127,7 +139,7 @@ ${e}
 
 ## **License**
  
-${cp.badges[0]}
+
 ${cp.license[0]}
 
 `;

@@ -1,13 +1,13 @@
-## **Readme** 
+## **ReadMe Generator**           [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   
   
   ## **The Author**
 
-   brad colenab. 
+   Brad Coleman. 
 
   ## **Description**
 
-  this is it.
+  This is it.
     
   ## **Technology Used**
 
@@ -17,12 +17,12 @@
 ## **Code HightLight**
 
 ```
-undefined
+This is the code
 ```
 
 ## **License**
  
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 MIT License
 
 Copyright (c) [year] [fullname]

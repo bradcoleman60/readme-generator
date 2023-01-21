@@ -68,7 +68,19 @@ var iscBadge = `[![License: ISC](https://img.shields.io/badge/License-ISC-blue.s
 var unBadge = `[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)`
 
 
-var brad = "hi there"
+var tableHeader = `| Technology Used | Resource URL | `;
+var tablesyntax = `| ------------- |:-------------| `,
+var html = `| HTML | [https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) |`;
+var git = `| Git | [https://git-scm.com/](https://git-scm.com/) |  `;
+var css = `| CSS | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) |`;
+var JavaScript = `| JavaScript | [https://developer.mozilla.org/en-US/docs/Learn/JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript) |`;
+
+var nodeJs = `| jQuery API | [https://api.jquery.com/](https://api.jquery.com/) |`;
+var jQuery = `| jQuery API | [https://api.jquery.com/](https://api.jquery.com/) |`;
+
+
+
+
 
 module.exports = {
     license: [mitLicense, iscLicense, unLicense],
