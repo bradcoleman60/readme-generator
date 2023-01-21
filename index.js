@@ -4,6 +4,9 @@ const fs = require("fs");
 //This adds the inquire.js module to this script
 var inquirer = require("inquirer");
 
+//This adds link to components.js file 
+var cp = require("./components")
+
 /*Declare an object that will contain all of the user 
 inputs from the inquirer method*/
 var projectInputs = {
@@ -29,7 +32,7 @@ inquirer
       message: "What is the name of the author of this project?",
     },
     {
-      type: "editor",
+      type: "input",
       name: "description",
       message: "Please describe your project",
     },
@@ -58,7 +61,7 @@ inquirer
       message: "Would you like to include a code highlight in your readMe?"
     },
     {
-      type: "editor",
+      type: "input",
       name: "codeHightlightText",
       message: "User your editor to enter your code highlight",
       when: (answers) => answers.codeHighlightAnswer === true
@@ -66,16 +69,16 @@ inquirer
   ])
   //This logs the answers
   .then((answers) => {
-    projectInputs.title = answers.title;
+    projectInputs.title = (answers.title);
     projectInputs.author = answers.author;
     projectInputs.description = answers.description;
     projectInputs.technology = answers.technology;
     const technologyArray = answers.technology;
     const cssArray = answers.cssLibrary;
     projectInputs.codeHighlight = (answers.codeHightlightText);
-    console.info("answer:", answers.title);
-    console.info("answer:", answers.author);
-    console.info("answer:", answers.description);
+    // console.info("answer:", answers.title);
+    // console.info("answer:", answers.author);
+    // console.info("answer:", answers.description);
     // console.info("answer:", answers.technology);
     settextContent(
       projectInputs.title,
@@ -85,24 +88,36 @@ inquirer
       projectInputs.codeHighlight
       
     );
+    
     // console.log(projectInputs.codeHighlight)
     for (const technology of technologyArray){
-      console.log("this is the technology: " + technology)
+      // console.log("this is the technology: " + technology)
     };
     for (const library of cssArray){
-      console.log("CSS Library uses: " + library)
+      // console.log("CSS Library uses: " + library)
     };
-    techIterator(projectInputs.technology)
+    // techIterator(projectInputs.technology)
   });
 
+  
 /* This sets the content (via a template literal string) of the 
 readme document*/
 function settextContent(a, b, c, d, e) {
-  var theReadMe = `The title of this project is ${a} and the author is ${b}. 
+  var theReadMe = `## **${a}** 
+  
+  
+  ## **The Author**
 
-The description of this project is: ${c}.
+   ${b}. 
+
+  ## **Description**
+
+  ${c}.
     
-The technology used in this project included: ${d}'
+  ## **Technology Used**
+
+  The technology used in this project included: 
+  ${d}'
 
 ## **Code HightLight**
 
@@ -110,11 +125,16 @@ The technology used in this project included: ${d}'
 ${e}
 \`\`\`
 
+## **License**
+ 
+${cp.badges[0]}
+${cp.license[0]}
 
 `;
 
   writeReadme(theReadMe);
 }
+
 /*This function writes the readme document*/
 function writeReadme(theReadMe) {
   fs.writeFile("TEST_README.md", theReadMe, (err) => {
@@ -144,3 +164,4 @@ function techList(selectedTech) {
     // return(techLookUp.get(selectedTech));
   console.log(techLookUp.get(selectedTech));
 }
+
