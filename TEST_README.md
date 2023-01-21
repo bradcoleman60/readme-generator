@@ -1,7 +1,15 @@
-The title of this project is sss and the author is ssss. 
+The title of this project is ssss and the author is sss. 
 
-The description of this project is: sss.
+The description of this project is: MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+
+
+
+
+KKKKKKKKKKSSSSSSSSSSSSSSSSSSSSSSSSSSS.
     
-The technology used in this project included: JavaScript,HTML,NODE.js'
+The technology used in this project included: JavaScript,HTML,CSS,NODE.js,Jquery'
 
 
