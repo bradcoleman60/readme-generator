@@ -12,11 +12,15 @@ inputs from the inquirer method*/
 var projectInputs = {
   title: "",
   author: "",
+  email: "",
+  gitHubUser: "",
   description: "",
-  technology: "",
+  License: "",
   cssLibrary: "",
   codeHighlight: ""
 };
+
+//Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
 
 //This is the object of the questions that will be answered in the terminal
 inquirer
@@ -29,7 +33,17 @@ inquirer
     {
       type: "input",
       name: "author",
-      message: "What is the name of the author of this project?",
+      message: "Please enter your name",
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "Please enter your email address?",
+    },
+    {
+      type: "input",
+      name: "github",
+      message: "Please enter your Git Hub user name",
     },
     {
       type: "input",
@@ -38,111 +52,73 @@ inquirer
     },
     {
       type: "checkbox",
-      name: "technology",
-      message: "Please select the technologies you used on this project",
-      choices: ["JavaScript", "HTML", "CSS", "NODE.js", "Jquery"],
-    },
-    {
-      type: "confirm",
-      name: "cssUsed",
-      message: "Did you use a CSS library on this project?",
-      when: (answers) => answers.technology.includes('CSS')
-    },
-    {
-      type: "checkbox",
-      name: "cssLibrary",
-      message: "Select a css that you used",
-      choices: ["BootStrap", "Tailwind", "Bulma", "Skeleton", "Pure",'Groundwork', 'Cardinal','Other'],
-      when: (answers) => answers.cssUsed === true
-    },
-    {
-      type: "confirm",
-      name: "codeHighlightAnswer",
-      message: "Would you like to include a code highlight in your readMe?"
-    },
-    {
-      type: "input",
-      name: "codeHightlightText",
-      message: "User your editor to enter your code highlight",
-      when: (answers) => answers.codeHighlightAnswer === true
+      name: "license",
+      message: "Please select a license you would like to use",
+      choices: ["MIT", "ISC", "Unlicense"],
     }
+    // {
+    //   type: "confirm",
+    //   name: "codeHighlightAnswer",
+    //   message: "Would you like to include a code highlight in your readMe?"
+    // },
+    // {
+    //   type: "input",
+    //   name: "codeHightlightText",
+    //   message: "User your editor to enter your code highlight",
+    //   when: (answers) => answers.codeHighlightAnswer === true
+    // }
   ])
   //This logs the answers
   .then((answers) => {
-    projectInputs.title = (answers.title);
-    projectInputs.author = answers.author;
-    projectInputs.description = answers.description;
-    projectInputs.technology = answers.technology;
-    const technologyArray = answers.technology;
-    const cssArray = answers.cssLibrary;
-    projectInputs.codeHighlight = (answers.codeHightlightText);
-    // console.info("answer:", answers.title);
-    // console.info("answer:", answers.author);
-    // console.info("answer:", answers.description);
-    // console.info("answer:", answers.technology);
-    settextContent(
-      projectInputs.title,
-      projectInputs.author,
-      projectInputs.description,
-      projectInputs.technology,
-      projectInputs.codeHighlight
+    //Using object destructuring made variables equal to the keys in the answer object
+    const { title, author,email, github, description, license} = answers;
+    settextContent(title, author, email, github, description, license);
       
-    );
-    
-    // console.log(projectInputs.codeHighlight)
-    for (const technology of technologyArray){
-      // console.log("this is the technology: " + technology)
-    };
-    for (const library of cssArray){
-      // console.log("CSS Library uses: " + library)
-    };
-    // techIterator(projectInputs.technology)
   });
 
-  
+
 /* This sets the content (via a template literal string) of the 
 readme document*/
-function settextContent(a, b, c, d, e) {
-  var theReadMe = `## **${a}**           ${cp.badges[0]}
+function settextContent(title, author, email, github, description, license) {
+  var theReadMe = `## **${title}**        ${cp.badges[license]}
+    
+ ## **Table of Contents**
   
-  ## Table of Contents 
-  
+* [Description](#description)
 * [Installation](#installation)
 * [Usage](#usage)
-* [Credits](#credits)
 * [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
 
-## Installation
+## **Description**
 
-## Usage 
+  ${description}.
 
-## Credits
-  
-  ## **The Author**
+## **Installation**
 
-   ${b}. 
-
-  ## **Description**
-
-  ${c}.
-    
-  ## **Technology Used**
-
-  The technology used in this project included: 
-  ${d}'
-
-## **Code HightLight**
-
-\`\`\`
-${e}
-\`\`\`
+## **Usage** 
 
 ## **License**
- 
 
-${cp.license[0]}
+${cp.license[license]}
 
-`;
+
+## **Contributing**
+
+${cp.contributionGuidelines}
+
+## **Tests**
+  
+## **Questions**
+
+Please contact ${author} at ${email}.
+
+Please also check the GitHub Repositories at: https://github.com/${github}/
+
+
+  `;
 
   writeReadme(theReadMe);
 }
@@ -153,8 +129,8 @@ function writeReadme(theReadMe) {
     if (err) throw err;
     console.log("The file is saved");
   });
-  console.log(theReadMe);
-  techList();
+  // console.log(theReadMe);
+  
 }
 
 //This function adds ability to obtain which technologies were selected
