@@ -60,56 +60,107 @@ inquirer
       message: "Please describe your project",
       
     },
+
+    
+
+
+
+    
+
+
+
+    
+
+
+    {
+      type: "input",
+      name: "usage",
+      message: "Please describe the usage of your project"
+      
+    },
+
+    {
+      type: "input",
+      name: "contribution",
+      message: "Please provide contribution guidelines"
+      
+    },
+
     {
       type: "list",
       name: "license",
       message: "Please select a license you would like to use",
       choices: ["MIT", "ISC", "Unlicense"],
     },
+    
+    { 
+      type: 'input',
+      name: 'testSteps',
+      message: 'Enter tests steps to ensure this project is working',
+    },
+
     {
       type:'confirm',
-      name: "testStepsNeeded",
-      message: "Would you like to add testing steps to your Readme?",
+      name: "installationStepsNeeded",
+      message: "Would you like to add installation steps to your Readme?",
     },
     {
       type: 'input',
-      name: 'testSteps',
-      message: 'Enter the test step here',
-      when: (answers) => answers.testStepsNeeded === true
+      name: 'installationSteps',
+      message: 'Enter the installation step here:',
+      when: (answers) => answers.installationStepsNeeded === true
 
     },
 
     {
       type:'loop',
-      name: "testStep2",
-      message: "Would you like to add another test step?",
-      when: (answers) => answers.testStepsNeeded === true,
+      name: 'installationSteps2',
+      message: "Would you like to add another installation step?",
+      when: (answers) => answers.installationStepsNeeded === true,
       questions: [
         {
           type: 'input',
-          name: 'testSteps2',
-          message: 'Enter the test step:'
+          name: 'installationSteps2',
+          message: 'Enter the installation step here:'
         }
       ]
     }
-
     
-
 
   ])
   //This logs the answers
   .then((answers) => {
     console.log(answers);
     //Using object destructuring made variables equal to the keys in the answer object
-    const { title, author,email, github, description, license} = answers;
-    settextContent(title, author, email, github, description, license);
+    const { title, author,email, github, description, license, installationSteps,installationSteps2,usage,contribution,testSteps } = answers;
+    
+    //Deconstruct the installation steps
+    // var outputData1 = installationSteps.map(Object.values)
+    var outputData2 = installationSteps2.map(Object.values)
+
+    // var NewArray = outputData1.concat(outputData2)
+    var installString = ''
+    createInstallationString(outputData2)
+    function createInstallationString (outputData2){
+      
+      for (i = 0; i < outputData2.length; i++){
+      
+        installString = installString + outputData2[i] + '\n'
+      } console.log(installString)
+      // sendInstallString(installString)
+    }
+
+    
+
+    //Pass variables to the settestContent function 
+    settextContent(title, author, email, github, description, license,  installationSteps,installationSteps2,usage,contribution,testSteps, installString  );
     
   });
 
 
 /* This sets the content (via a template literal string) of the 
 readme document*/
-function settextContent(title, author, email, github, description, license) {
+function settextContent(title, author, email, github, description, license, installationSteps,installationSteps2,usage,contribution,testSteps, installString) {
   var theReadMe = `## **${title}**        ${cp.badges[license]}
     
  ## **Table of Contents**
@@ -128,25 +179,30 @@ function settextContent(title, author, email, github, description, license) {
 
 ## **Installation**
 
+${installationSteps}
+${installString}
+
 ## **Usage** 
+
+${usage}
 
 ## **License**
 
 ${cp.license[license]}
 
-
 ## **Contributing**
 
-${cp.contributionGuidelines}
+${contribution}
 
 ## **Tests**
+
+${testSteps}
   
 ## **Questions**
 
 Please contact ${author} at ${email}.
 
 Please also check the GitHub Repositories at: https://github.com/${github}/
-
 
   `;
 
