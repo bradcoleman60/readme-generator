@@ -19,6 +19,9 @@ Below is a screen shot of the command line interface at the completion of the qu
 ![screenshot](screenshot.jpg)
 
 
+Link to Demonstration Video of how this Generator Works:
+
+https://app.vidcast.io/share/c6d1a746-76c3-4a06-bc24-f510ae42cf43
 
 # **Highlighted Code Example**
 
