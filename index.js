@@ -1,79 +1,109 @@
 //This makes the file system module of node available in this script
 const fs = require("fs");
 
+const fetch = require('node-fetch');
+
+
+
 //This adds the inquire.js module to this script
 var inquirer = require("inquirer");
+//This adds the inquire prompt type of "loop"
+inquirer.registerPrompt("loop", require("inquirer-loop")(inquirer));
 
 //This adds link to components.js file 
 var cp = require("./components")
 
-/*Declare an object that will contain all of the user 
-inputs from the inquirer method*/
-var projectInputs = {
-  title: "",
-  author: "",
-  email: "",
-  gitHubUser: "",
-  description: "",
-  License: "",
-  cssLibrary: "",
-  codeHighlight: ""
-};
+// var requestUrl = 'https://api.github.com/users/'
 
 //Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
 
 //This is the object of the questions that will be answered in the terminal
+
 inquirer
   .prompt([
+       
     {
       type: "input",
       name: "title",
       message: "What is the title of your project?",
+      validate(answer) {if (answer.length <1) {
+        return `Please enter a valid title`;
+      } return true }
+      
     },
     {
       type: "input",
       name: "author",
-      message: "Please enter your name",
+      message: "Please enter your full name",
+      validate(answer) {if (answer.length <1) {
+        return `Please enter a valid author`;
+      } return true }
     },
     {
       type: "input",
       name: "email",
       message: "Please enter your email address?",
+      validate(answer) {if (answer =='' || answer.indexOf('@') == -1 || answer.indexOf('.') == -1){
+        return 'Please enter a valid email address'}
+        return true
+      }
     },
     {
       type: "input",
       name: "github",
       message: "Please enter your Git Hub user name",
-    },
+    } ,
+     
     {
       type: "input",
       name: "description",
       message: "Please describe your project",
+      
     },
     {
-      type: "checkbox",
+      type: "list",
       name: "license",
       message: "Please select a license you would like to use",
       choices: ["MIT", "ISC", "Unlicense"],
+    },
+    {
+      type:'confirm',
+      name: "testStepsNeeded",
+      message: "Would you like to add testing steps to your Readme?",
+    },
+    {
+      type: 'input',
+      name: 'testSteps',
+      message: 'Enter the test step here',
+      when: (answers) => answers.testStepsNeeded === true
+
+    },
+
+    {
+      type:'loop',
+      name: "testStep2",
+      message: "Would you like to add another test step?",
+      when: (answers) => answers.testStepsNeeded === true,
+      questions: [
+        {
+          type: 'input',
+          name: 'testSteps2',
+          message: 'Enter the test step:'
+        }
+      ]
     }
-    // {
-    //   type: "confirm",
-    //   name: "codeHighlightAnswer",
-    //   message: "Would you like to include a code highlight in your readMe?"
-    // },
-    // {
-    //   type: "input",
-    //   name: "codeHightlightText",
-    //   message: "User your editor to enter your code highlight",
-    //   when: (answers) => answers.codeHighlightAnswer === true
-    // }
+
+    
+
+
   ])
   //This logs the answers
   .then((answers) => {
+    console.log(answers);
     //Using object destructuring made variables equal to the keys in the answer object
     const { title, author,email, github, description, license} = answers;
     settextContent(title, author, email, github, description, license);
-      
+    
   });
 
 
